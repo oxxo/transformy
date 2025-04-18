@@ -1,4 +1,4 @@
-# Minimalista diseño digital
+# Minimalista diseño digital Tesinng
 
 *Automatically synced with your [v0.dev](https://v0.dev) deployments*
 
