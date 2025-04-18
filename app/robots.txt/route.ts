@@ -1,12 +1,14 @@
-import type { MetadataRoute } from "next"
+export function GET() {
+  const robotsTxt = `
+User-agent: *
+Allow: /
 
-export function GET(): MetadataRoute.Robots {
-  return {
-    rules: {
-      userAgent: "*",
-      allow: "/",
-      disallow: ["/api/", "/admin/"],
+Sitemap: https://v0-minimalista-diseno-digital-azg2yir2q.vercel.app/sitemap.xml
+`
+
+  return new Response(robotsTxt, {
+    headers: {
+      "Content-Type": "text/plain",
     },
-    sitemap: "https://v0-minimalista-diseno-digital-azg2yir2q.vercel.app/sitemap.xml",
-  }
+  })
 }

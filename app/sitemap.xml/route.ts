@@ -1,7 +1,5 @@
-import type { MetadataRoute } from "next"
-
-export function GET(): MetadataRoute.Sitemap {
-  return [
+export function GET(): Response {
+  const sitemap = [
     {
       url: "https://v0-minimalista-diseno-digital-azg2yir2q.vercel.app/",
       lastModified: new Date(),
@@ -33,4 +31,28 @@ export function GET(): MetadataRoute.Sitemap {
       priority: 0.5,
     },
   ]
+
+  // Convertir el sitemap a formato XML
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  ${sitemap
+    .map(
+      (item) => `
+    <url>
+      <loc>${item.url}</loc>
+      <lastmod>${item.lastModified.toISOString()}</lastmod>
+      <changefreq>${item.changeFrequency}</changefreq>
+      <priority>${item.priority}</priority>
+    </url>
+  `,
+    )
+    .join("")}
+</urlset>`
+
+  // Devolver una respuesta con el XML
+  return new Response(xml, {
+    headers: {
+      "Content-Type": "application/xml",
+    },
+  })
 }

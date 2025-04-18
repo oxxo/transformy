@@ -1,14 +1,21 @@
-import { clsx, type ClassValue } from "clsx"
+import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+export function formatCurrency(value?: number): string {
+  if (value === undefined) return "$0.00"
+  return new Intl.NumberFormat("es-AR", {
+    style: "currency",
+    currency: "ARS",
+    minimumFractionDigits: 2,
+  }).format(value)
+}
+
 export function getURL() {
-  // Usar NEXT_PUBLIC_VERCEL_URL como fallback si DOMAIN no está definido
-  let url =
-    process?.env?.DOMAIN || process?.env?.NEXT_PUBLIC_VERCEL_URL || process?.env?.VERCEL_URL || "http://localhost:3000"
+  let url = process?.env?.DOMAIN || process?.env?.NEXT_PUBLIC_VERCEL_URL || "http://localhost:3000"
 
   // Make sure to include `https://` when not localhost.
   url = url.includes("http") ? url : `https://${url}`
@@ -17,11 +24,4 @@ export function getURL() {
   url = url.charAt(url.length - 1) === "/" ? url : `${url}/`
 
   return url
-}
-
-export const formatCurrency = (amount: number) => {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  }).format(amount / 100)
 }

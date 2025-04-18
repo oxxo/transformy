@@ -60,7 +60,6 @@
     "zod": "^3.24.1",
     "@stripe/stripe-js": "latest",
     "@emotion/is-prop-valid": "latest",
-    "tailwindcss": "latest",
     "stripe": "latest",
     "@stripe/react-stripe-js": "latest",
     "framer-motion": "latest",
